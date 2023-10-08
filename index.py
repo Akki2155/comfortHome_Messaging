@@ -12,12 +12,13 @@ def default_message():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    # print('check',request.files['file'])
+    print('check',request.files['file'])
     if 'file' not in request.files:
         print('No file found')
         return 'No file part'
     
     text_data = request.form.get('textData')
+    print("Received text data:", text_data)
     if not text_data:
         return 'No text data provided'
     file = request.files['file']
@@ -26,9 +27,6 @@ def upload_file():
     df=pd.read_csv(request.files['file'])
     phone_numbers=df['mobile_no']
     send_messages(phone_numbers, text_data)
-
-    # print("Received text data:", text_data)
-
     return 'File and text data received and processed successfully!'
 
 
